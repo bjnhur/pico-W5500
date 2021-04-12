@@ -175,9 +175,19 @@ class WIZNET5K:  # pylint: disable=too-many-public-methods
         self.mac_address = mac
         self._src_port = 0
         self._dns = 0
+
+        start_time = time.monotonic()
+        while True:
+            if self.link_status or ((time.monotonic() - start_time) > 5) :
+                break
+            time.sleep(1)
+            if self._debug:
+                print("My Link is:", self.link_status)
+
         # Set DHCP
         if is_dhcp:
             ret = self.set_dhcp(hostname, dhcp_timeout)
+            print("RET",ret)
             assert ret == 0, "Failed to configure DHCP Server!"
 
     def set_dhcp(self, hostname=None, response_timeout=3):
@@ -468,8 +478,8 @@ class WIZNET5K:  # pylint: disable=too-many-public-methods
         :param int socket_num: Desired socket to return bytes from.
         :param int sock_type: Socket type, defaults to TCP.
         """
-        if self._debug:
-            print("* socket_available called with protocol", sock_type)
+        # if self._debug:
+        #     print("* socket_available called with protocol", sock_type)
         assert socket_num <= self.max_sockets, "Provided socket exceeds max_sockets."
 
         res = self._get_rx_rcv_size(socket_num)

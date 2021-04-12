@@ -127,6 +127,10 @@ class DHCP:
         :param float time_elapsed: Number of seconds elapsed since renewal.
 
         """
+        # before making send packet, shoule init _BUFF. if not, DHCP sometimes fails, wrong padding, garbage bytes, ...
+        for i in range(len(_BUFF)):
+            _BUFF[i] = 0
+
         # OP
         _BUFF[0] = DHCP_BOOT_REQUEST
         # HTYPE
@@ -145,8 +149,7 @@ class DHCP:
         _BUFF[8] = (int(time_elapsed) & 0xFF00) >> 8
         _BUFF[9] = int(time_elapsed) & 0x00FF
 
-        # flags
-        flags = htons(0x8000)
+        flags = htons(0x8000) # Broadcast option
         flags = flags.to_bytes(2, "b")
         _BUFF[10] = flags[1]
         _BUFF[11] = flags[0]
@@ -361,9 +364,9 @@ class DHCP:
                     print("* DHCP: Parsing OFFER")
                 msg_type, xid = self.parse_dhcp_response(self._response_timeout)
                 if msg_type == DHCP_OFFER:
-                    # use the _transaction_id the offer returned,
-                    # rather than the current one
-                    self._transaction_id = self._transaction_id.from_bytes(xid, "l")
+                    # # use the _transaction_id the offer returned,
+                    # # rather than the current one
+                    # self._transaction_id = self._transaction_id.from_bytes(xid, "l")
                     if self._debug:
                         print("* DHCP: Request")
                     self.send_dhcp_message(
@@ -372,7 +375,7 @@ class DHCP:
                     self._dhcp_state = STATE_DHCP_REQUEST
                 else:
                     print("* Received DHCP Message is not OFFER")
-            elif STATE_DHCP_REQUEST:
+            elif self._dhcp_state == STATE_DHCP_REQUEST:
                 if self._debug:
                     print("* DHCP: Parsing ACK")
                 msg_type, xid = self.parse_dhcp_response(self._response_timeout)

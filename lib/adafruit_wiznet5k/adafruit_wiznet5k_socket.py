@@ -261,7 +261,7 @@ class socket:
         :param int bufsize: Maximum number of bytes to receive.
         :param int flags: ignored, present for compatibility.
         """
-        # print("Socket read", bufsize)
+        print("Socket read", bufsize)
         if bufsize == 0:
             # read everything on the socket
             while True:
@@ -285,7 +285,7 @@ class socket:
         to_read = bufsize - len(self._buffer)
         received = []
         while to_read > 0:
-            # print("Bytes to read:", to_read)
+            print("Bytes to read:", to_read)
             avail = self.available()
             if avail:
                 stamp = time.monotonic()

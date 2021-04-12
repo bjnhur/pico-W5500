@@ -261,7 +261,7 @@ class socket:
         :param int bufsize: Maximum number of bytes to receive.
         :param int flags: ignored, present for compatibility.
         """
-        print("Socket read", bufsize)
+        # print("Socket read", bufsize)
         if bufsize == 0:
             # read everything on the socket
             while True:

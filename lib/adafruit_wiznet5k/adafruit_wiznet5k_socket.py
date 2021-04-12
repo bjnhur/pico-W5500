@@ -285,7 +285,7 @@ class socket:
         to_read = bufsize - len(self._buffer)
         received = []
         while to_read > 0:
-            print("Bytes to read:", to_read)
+            # print("Bytes to read:", to_read)
             avail = self.available()
             if avail:
                 stamp = time.monotonic()

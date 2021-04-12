@@ -11,7 +11,7 @@ SPI1_RX = board.GP12
 SPI1_CSn = board.GP13
 W5500_RSTn = board.GP15
 
-print("Wiznet5k SimpleServer Test (no DHCP)")
+print("Wiznet5k SimpleServer Test (DHCP)")
 
 # Setup your network configuration below
 # random MAC, later should change this value on your vendor ID

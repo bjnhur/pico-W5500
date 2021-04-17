@@ -59,17 +59,17 @@ server_port = 50007  # Port to listen on
 server.bind((server_ip, server_port))  # Bind to IP and Port
 server.listen()  # Begin listening for incoming clients
 
+conn, addr = server.accept()  # Wait for a connection from a client.
+print("socket connected")
 while True:
     led.value = not led.value
     time.sleep(1)
-    conn, addr = server.accept()  # Wait for a connection from a client.
-    print("socket connected")
     with conn:
         # data = conn.recv()
         # print(data)
         # conn.send(data)  # Echo message back to client
         while True:
-            data = conn.recv()
+            data = conn.recv(10)
             if data:
                 print(data)
                 conn.send(data)  # Echo message back to client

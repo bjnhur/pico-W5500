@@ -127,9 +127,9 @@ class DHCP:
         :param float time_elapsed: Number of seconds elapsed since renewal.
 
         """
-        # before making send packet, shoule init _BUFF. if not, DHCP sometimes fails, wrong padding, garbage bytes, ...
-        for i in range(len(_BUFF)):
-            _BUFF[i] = 0
+        # before making send packet, shoule init _BUFF. 
+        # if not, DHCP sometimes fails, wrong padding, garbage bytes, ...
+        _BUFF[:] = b'\x00' * len(_BUFF)
 
         # OP
         _BUFF[0] = DHCP_BOOT_REQUEST
@@ -149,7 +149,8 @@ class DHCP:
         _BUFF[8] = (int(time_elapsed) & 0xFF00) >> 8
         _BUFF[9] = int(time_elapsed) & 0x00FF
 
-        flags = htons(0x8000) # Broadcast option
+        # flags
+        flags = htons(0x8000)
         flags = flags.to_bytes(2, "b")
         _BUFF[10] = flags[1]
         _BUFF[11] = flags[0]
@@ -368,7 +369,7 @@ class DHCP:
                     # # rather than the current one
                     # self._transaction_id = self._transaction_id.from_bytes(xid, "l")
                     if self._debug:
-                        print("* DHCP: Request")
+                        print("* DHCP: Request", xid)
                     self.send_dhcp_message(
                         DHCP_REQUEST, ((time.monotonic() - start_time) / 1000)
                     )

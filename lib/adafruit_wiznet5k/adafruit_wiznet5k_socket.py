@@ -268,9 +268,7 @@ class socket:
                 avail = self.available()
                 if avail:
                     if self._sock_type == SOCK_STREAM:
-                        self._buffer += _the_interface.socket_read(self.socknum, avail)[
-                            1
-                        ]
+                        self._buffer += _the_interface.socket_read(self.socknum, avail)[1]
                     elif self._sock_type == SOCK_DGRAM:
                         self._buffer += _the_interface.read_udp(self.socknum, avail)[1]
                 else:
@@ -310,6 +308,26 @@ class socket:
         else:
             ret = self._buffer[:bufsize]
             self._buffer = self._buffer[bufsize:]
+        gc.collect()
+        return ret
+
+    def embed_recv(self, bufsize=0, flags=0):  # pylint: disable=too-many-branches
+        """Reads some bytes from the connected remote address and then return recv().
+        :param int bufsize: Maximum number of bytes to receive.
+        :param int flags: ignored, present for compatibility.
+        """
+        # print("Socket read", bufsize)
+        ret = None
+        avail = self.available()
+        if avail:
+            if self._sock_type == SOCK_STREAM:
+                self._buffer += _the_interface.socket_read(self.socknum, avail)[1]
+            elif self._sock_type == SOCK_DGRAM:
+                self._buffer += _the_interface.read_udp(self.socknum, avail)[1]
+        gc.collect()
+        ret = self._buffer
+        # print("RET ptr:", id(ret), id(self._buffer))
+        self._buffer = b""
         gc.collect()
         return ret
 

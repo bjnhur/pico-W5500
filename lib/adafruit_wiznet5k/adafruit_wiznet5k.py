@@ -683,7 +683,7 @@ class WIZNET5K:  # pylint: disable=too-many-public-methods
             print("Bytes avail. on sock: ", ret)
         if ret == 0:
             # no data on socket?
-            status = self._read_snmr(socket_num)
+            status = self._read_snsr(socket_num)
             if status in (SNSR_SOCK_LISTEN, SNSR_SOCK_CLOSED, SNSR_SOCK_CLOSE_WAIT):
                 # remote end closed its side of the connection, EOF state
                 ret = 0
@@ -709,7 +709,7 @@ class WIZNET5K:  # pylint: disable=too-many-public-methods
 
             #  After reading the received data, update Sn_RX_RD to the increased
             # value as many as the reading size.
-            ptr += ret
+            ptr = (ptr + ret) & 0xFFFF
             self._write_snrx_rd(socket_num, ptr)
 
             # Notify the W5k of the updated Sn_Rx_RD

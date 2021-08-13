@@ -25,5 +25,6 @@ For adafruit_bus_device, download from below link.
 - https://github.com/adafruit/Adafruit_CircuitPython_BusDevice
 
 For adafruit_wiznet5k, download from below link.
+- W5100S add version : this repo /lib/adafruit_wiznet5k
 - modify version : https://github.com/bjnhur/Adafruit_CircuitPython_Wiznet5k
 - original version : https://github.com/adafruit/Adafruit_CircuitPython_Wiznet5k

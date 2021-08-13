@@ -181,13 +181,6 @@ class socket:
             if ip_address != current_ip:
                 _the_interface.ifconfig = (ip_address, subnet_mask, gw_addr, dns)
         self._listen_port = address[1]
-        # For UDP servers we need to open the socket here because we won't call
-        # listen
-        if self._sock_type == SOCK_DGRAM:
-            _the_interface.socket_listen(
-                self.socknum, self._listen_port, wiznet5k.adafruit_wiznet5k.SNMR_UDP
-            )
-            self._buffer = b""
 
     def listen(self, backlog=None):
         """Listen on the port specified by bind.
@@ -240,13 +233,9 @@ class socket:
                 host = tuple(map(int, host.split(".")))
             except ValueError:
                 host = _the_interface.get_host_by_name(host)
-        if self._listen_port is not None:
-            _the_interface.src_port = self._listen_port
-        result = _the_interface.socket_connect(
+        if not _the_interface.socket_connect(
             self.socknum, host, port, conn_mode=self._sock_type
-        )
-        _the_interface.src_port = 0
-        if not result:
+        ):
             raise RuntimeError("Failed to connect to host", host)
         self._buffer = b""
 
@@ -272,18 +261,14 @@ class socket:
         :param int bufsize: Maximum number of bytes to receive.
         :param int flags: ignored, present for compatibility.
         """
-        if self.status == wiznet5k.adafruit_wiznet5k.SNSR_SOCK_CLOSED:
-            return b""
-
+        # print("Socket read", bufsize)
         if bufsize == 0:
             # read everything on the socket
             while True:
                 avail = self.available()
                 if avail:
                     if self._sock_type == SOCK_STREAM:
-                        self._buffer += _the_interface.socket_read(self.socknum, avail)[
-                            1
-                        ]
+                        self._buffer += _the_interface.socket_read(self.socknum, avail)[1]
                     elif self._sock_type == SOCK_DGRAM:
                         self._buffer += _the_interface.read_udp(self.socknum, avail)[1]
                 else:
@@ -298,6 +283,7 @@ class socket:
         to_read = bufsize - len(self._buffer)
         received = []
         while to_read > 0:
+            # print("Bytes to read:", to_read)
             avail = self.available()
             if avail:
                 stamp = time.monotonic()

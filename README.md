@@ -1,6 +1,6 @@
 # pico-W5500
-Add W5500 Ethernet to Raspberry Pi Pico
-Add W5100S Driver code
+- Add W5500 Ethernet to Raspberry Pi Pico
+- Add W5100S Driver code
 
 ## Usage the code.
 
@@ -15,8 +15,11 @@ Find and copy adafruit_bus_device & adafruit_requests.mpy file from Adafruit's C
 - Download adafruit-circuitpython-bundle-6.x-mpy-20210409.zip
 - or Download adafruit-circuitpython-bundle-6.x-mpy-20210813
 ~~- unzip and find adafruit_requests.mpy.~~
-- use adafruit_requests.py instead of adafruit_requests.mpy
+
+### 2021.08.13
+- use adafruit_requests.py instead of adafruit_requests.mpy ; because of some changes from Adafruit_CircuitPython_Wiznet5k
 - from https://github.com/adafruit/Adafruit_CircuitPython_Requests/blob/main/adafruit_requests.py
+
 
 For adafruit_bus_device, download from below link.
 - https://github.com/adafruit/Adafruit_CircuitPython_BusDevice

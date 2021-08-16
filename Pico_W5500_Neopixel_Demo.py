@@ -93,6 +93,7 @@ while True:
             if data:
                 print(data)
                 conn.send(data)  # Echo message back to client
+                # expect data format RED example: 255,0,0
                 recvStr = data.decode('UTF-8')
                 print(recvStr)
                 color = recvStr.split(",", 2)

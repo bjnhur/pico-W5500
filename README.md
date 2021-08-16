@@ -17,9 +17,12 @@ Find and copy adafruit_bus_device & adafruit_requests.mpy file from Adafruit's C
 ~~- unzip and find adafruit_requests.mpy.~~
 
 ### 2021.08.13
-- use adafruit_requests.py instead of adafruit_requests.mpy ; because of some changes from Adafruit_CircuitPython_Wiznet5k
+
+Use adafruit_requests.py instead of adafruit_requests.mpy ; because of some changes from Adafruit_CircuitPython_Wiznet5k
 - from https://github.com/adafruit/Adafruit_CircuitPython_Requests/blob/main/adafruit_requests.py
 
+For adafruit_wsgi, download from below link.
+- https://github.com/adafruit/Adafruit_CircuitPython_WSGI
 
 For adafruit_bus_device, download from below link.
 - https://github.com/adafruit/Adafruit_CircuitPython_BusDevice

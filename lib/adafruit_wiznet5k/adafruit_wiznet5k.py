@@ -385,6 +385,7 @@ class WIZNET5K:  # pylint: disable=too-many-public-methods
 
     def detect_w5500(self):
         """Detects W5500 chip."""
+        self._chip_type = "w5500"
         assert self.sw_reset() == 0, "Chip not reset properly!"
         self._write_mr(0x08)
         # assert self._read_mr()[0] == 0x08, "Expected 0x08."
@@ -400,18 +401,18 @@ class WIZNET5K:  # pylint: disable=too-many-public-methods
 
         if self.read(REG_VERSIONR_W5500, 0x00)[0] != 0x04:
             return -1
-        self._chip_type = "w5500"
+        # self._chip_type = "w5500"
         # self._ch_base_msb = 0x10
         return 1
 
     def detect_w5100s(self):
         """Detects W5100S chip."""
+        self._chip_type = "w5100s"
         # sw reset
         assert self.sw_reset() == 0, "Chip not reset properly!"
         if self.read(REG_VERSIONR_W5100S, 0x00)[0] != 0x51:
             return -1
 
-        self._chip_type = "w5100s"
         self._ch_base_msb = 0x0400
         return 1
 

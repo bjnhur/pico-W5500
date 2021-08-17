@@ -18,6 +18,9 @@ Find and copy adafruit_bus_device & adafruit_requests.mpy file from Adafruit's C
 
 ### 2021.08.13
 
+For SPI communication, adafruit_bus_device (I2C, SPI support)
+- https://github.com/adafruit/Adafruit_CircuitPython_BusDevice
+
 Use adafruit_requests.py instead of adafruit_requests.mpy ; because of some changes from Adafruit_CircuitPython_Wiznet5k
 - from https://github.com/adafruit/Adafruit_CircuitPython_Requests/blob/main/adafruit_requests.py
 
@@ -31,3 +34,12 @@ For adafruit_wiznet5k, download from below link.
 - W5100S add version : this repo /lib/adafruit_wiznet5k
 - modify version : https://github.com/bjnhur/Adafruit_CircuitPython_Wiznet5k
 - original version : https://github.com/adafruit/Adafruit_CircuitPython_Wiznet5k
+
+For neopixel library,
+- https://github.com/adafruit/Adafruit_CircuitPython_NeoPixel
+
+For minimqtt library,
+- https://github.com/adafruit/Adafruit_CircuitPython_MiniMQTT
+
+For basic examples, 
+- https://github.com/adafruit/circuitpython/tree/main/tests

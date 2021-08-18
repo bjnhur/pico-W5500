@@ -62,6 +62,9 @@ server.listen()  # Begin listening for incoming clients
 conn, addr = server.accept()  # Wait for a connection from a client.
 print("socket connected")
 while True:
+    # Maintain DHCP lease
+    eth.maintain_dhcp_lease()
+
     led.value = not led.value
     time.sleep(1)
     with conn:

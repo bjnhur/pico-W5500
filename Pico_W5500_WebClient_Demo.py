@@ -79,6 +79,9 @@ r.close()
 
 
 while True:
+    # Maintain DHCP lease
+    eth.maintain_dhcp_lease()
+
     led.value = not led.value
     time.sleep(1)
 

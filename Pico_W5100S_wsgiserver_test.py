@@ -99,6 +99,10 @@ My IP address is $IPADDRESS<br>
 <p>
 <a href="/code">View code.py</a>
 </p>
+<h2>Getting JSON data example</h2>
+<p>
+<a href="/btc">currentprice/USD.json</a>
+</p>
 <h2>Go to root</h2>
 <p>
 <a href="/">root page</a>

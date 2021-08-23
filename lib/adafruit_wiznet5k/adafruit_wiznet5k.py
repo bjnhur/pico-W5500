@@ -183,8 +183,18 @@ class WIZNET5K:  # pylint: disable=too-many-public-methods
         self.src_port = 0
         self._dns = 0
 
-        # Set DHCP
+        # First, wait link status is on
+        # to avoid the code during DHCP, socket listen, connect ... - assert self.link_status, "Ethernet cable disconnected!"
+        start_time = time.monotonic()
+        while True:
+            if self.link_status or ((time.monotonic() - start_time) > 5):
+                break
+            time.sleep(1)
+            if self._debug:
+                print("My Link is:", self.link_status)
         self._dhcp_client = None
+
+        # Set DHCP
         if is_dhcp:
             ret = self.set_dhcp(hostname, dhcp_timeout)
             if ret != 0:
@@ -201,16 +211,6 @@ class WIZNET5K:  # pylint: disable=too-many-public-methods
         """
         if self._debug:
             print("* Initializing DHCP")
-
-        # First, wait link status is on
-        # to avoid the code during DHCP - assert self.link_status, "Ethernet cable disconnected!"
-        start_time = time.monotonic()
-        while True:
-            if self.link_status or ((time.monotonic() - start_time) > 5):
-                break
-            time.sleep(1)
-            if self._debug:
-                print("My Link is:", self.link_status)
 
         # Return IP assigned by DHCP
         self._dhcp_client = dhcp.DHCP(

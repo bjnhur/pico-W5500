@@ -45,11 +45,11 @@ REG_MR = const(0x0000)  # Mode
 REG_GAR = const(0x0001)  # Gateway IP Address
 REG_SUBR = const(0x0005)  # Subnet Mask Address
 REG_VERSIONR_W5500 = const(0x0039)  # W5500 Silicon Version
-REG_VERSIONR_W5100S = const(0x0080)  # W5500 Silicon Version
+REG_VERSIONR_W5100S = const(0x0080)  # W5100S Silicon Version
 REG_SHAR = const(0x0009)  # Source Hardware Address
 REG_SIPR = const(0x000F)  # Source IP Address
 REG_PHYCFGR = const(0x002E)  # W5500 PHY Configuration
-REG_PHYCFGR_W5100S = const(0x003C)  # W5500 PHY Configuration
+REG_PHYCFGR_W5100S = const(0x003C)  # W5100S PHY Configuration
 
 # Wiznet5k Socket Registers
 REG_SNMR = const(0x0000)  # Socket n Mode
